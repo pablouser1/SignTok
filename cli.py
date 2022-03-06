@@ -9,8 +9,10 @@ if __name__ == '__main__':
         nav = signer.navigator()
         res = {
             'status': 'ok',
-            'data': data,
-            'navigator': nav
+            'data': {
+                **data,
+                'navigator': nav
+            }
         }
         print(json.dumps(res))
         signer.cleanup()
