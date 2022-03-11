@@ -7,25 +7,26 @@ signer = Signer()
 
 class TikServer(BaseHTTPRequestHandler):
     def do_POST(self):
-        content_length = int(self.headers['Content-Length'])
-        post_data = self.rfile.read(content_length)
-        url = post_data.decode()
+        if self.path == '/signature':
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            url = post_data.decode()
 
-        data = signer.sign(url)
-        nav = signer.navigator()
+            data = signer.sign(url)
+            nav = signer.navigator()
 
-        res = {
-            'status': 'ok',
-            'data': {
-                **data,
-                'navigator': nav
+            res = {
+                'status': 'ok',
+                'data': {
+                    **data,
+                    'navigator': nav
+                }
             }
-        }
 
-        self.send_response(200)
-        self.send_header('Content-type', 'application/json')
-        self.end_headers()
-        self.wfile.write(json.dumps(res).encode())
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(res).encode())
 
 if __name__ == '__main__':
     PORT = getenv('PORT', 8080)
