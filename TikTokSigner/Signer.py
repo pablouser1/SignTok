@@ -1,24 +1,27 @@
 from os import getenv
-from time import sleep
 from selenium import webdriver
 from selenium_stealth import stealth
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from urllib import parse
 from TikTokSigner.Utils import Utils
 
 class Signer:
     DEFAULT_URL = 'https://www.tiktok.com/@tiktok/?lang=en'
     USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (Windows NT 10.0; Win64; x64) Chrome/90.0.4430.85 Safari/537.36'
+    TIMEOUT = 30
     driver: webdriver.Chrome
 
     signature = ''
     xttparams = ''
 
     def __init__(self):
+        print('Starting Browser')
         options = Options()
         path = getenv('GOOGLE_CHROME_SHIM', '')
         options._binary_location = path
-        options.add_argument("start-maximized")
         options.add_argument("--headless")
         options.add_argument("--disable-gpu")
         options.add_argument("--no-sandbox")
@@ -38,7 +41,7 @@ class Signer:
         )
 
         self.driver.get(self.DEFAULT_URL)
-        sleep(2)
+        WebDriverWait(self.driver, self.TIMEOUT).until(EC.presence_of_element_located((By.ID, 'app')))
 
         # Load scripts
         with open('./js/signature.js') as f:
