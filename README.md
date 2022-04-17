@@ -1,26 +1,21 @@
 # SignTok
 Sign your TikTok urls easily.
-This is a port of [tiktok-signature](https://github.com/carcabot/tiktok-signature) to Python using Selenium and Selenium Stealth
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+This is a port of [tiktok-signature](https://github.com/carcabot/tiktok-signature) using JSDOM
 
 ## Installation
 ```
-pip install -r requirements.txt
+yarn install
 ```
 You also need to have Chrome installed
 
 ## Usage
 For webserver:
 ```
-python web.py
+node server.py
 ```
 Then you can send a POST request to localhost:8080 with a raw/plain body containing the url
 
 For cli usage:
 ```
-python cli.py
+node index.js 'YOUR_URL_HERE'
 ```
-
-## TODO
-* Docker

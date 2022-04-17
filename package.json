@@ -1,0 +1,18 @@
+{
+  "name": "signtok",
+  "version": "1.0.0",
+  "description": "Sign your TikTok requests easily",
+  "repository": "https://github.com/pablouser1/SignTok",
+  "author": "Pablo Ferreiro",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "canvas": "^2.9.1",
+    "crypto-js": "^4.1.1",
+    "express": "^4.17.3",
+    "jsdom": "^19.0.0"
+  }
+}

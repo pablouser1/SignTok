@@ -4,19 +4,13 @@
     "keywords": [
         "tiktok",
         "api",
-        "python"
+        "node"
     ],
     "website": "https://github.com/pablouser1/SignTok",
     "repository": "https://github.com/pablouser1/SignTok",
     "buildpacks": [
         {
-            "url": "https://github.com/heroku/heroku-buildpack-google-chrome"
-        },
-        {
-            "url": "https://github.com/heroku/heroku-buildpack-chromedriver"
-        },
-        {
-            "url": "heroku/python"
+            "url": "heroku/nodejs"
         }
     ]
 }
