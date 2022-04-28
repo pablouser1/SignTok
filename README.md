@@ -2,11 +2,12 @@
 Sign your TikTok urls easily.
 This is a port of [tiktok-signature](https://github.com/carcabot/tiktok-signature) using JSDOM
 
+This project allows signing TikTok urls without having to run a headless browser, which lowers ram usage a lot.
+
 ## Installation
 ```
 yarn install
 ```
-You also need to have Chrome installed
 
 ## Usage
 For webserver:
