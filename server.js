@@ -1,30 +1,51 @@
 const Signer = require("./src/Signer")
-const bodyParser = require("body-parser")
-const express = require("express")
+const http = require("http")
 
-const port = process.env.PORT || 8080
-const app = express()
-app.use(bodyParser.text())
+const PORT = process.env.PORT || 8080
 
 const signer = new Signer()
 
-app.get('/', (req, res) => {
-  res.redirect('https://github.com/pablouser1/SignTok')
-})
+const server = http.createServer(async (req, res) => {
+  if (req.url === "/") {
+    res.writeHead(301, {
+      "Location": "https://github.com/pablouser1/SignTok"
+    })
+  }
+  else if (req.url === "/signature" && req.method === "POST") {
+    res.writeHead(200, {
+      "Content-Type": "application/json"
+    });
 
-app.post("/signature", (req, res) => {
-  const url = req.body
-  const data = signer.sign(url)
-  console.log("Sent data from request with url: " + url)
-  res.send({
-    status: "ok",
-    data: {
-      ...data,
-      navigator: signer.navigator()
+    // Get url from POST body
+    const buffers = [];
+    for await (const chunk of req) {
+      buffers.push(chunk);
     }
-  })
+    const url = Buffer.concat(buffers).toString();
+
+    const data = signer.sign(url)
+    console.log("Sent data from request with url: " + url)
+    res.write(JSON.stringify({
+      status: "ok",
+      data: {
+        ...data,
+        navigator: signer.navigator()
+      }
+    }));
+  }
+
+  // If no route present
+  else {
+    res.writeHead(404, {
+      "Content-Type": "application/json"
+    })
+    res.write(JSON.stringify({
+      message: "Route not found"
+    }))
+  }
+  res.end()
 })
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`)
+server.listen(PORT, () => {
+  console.log(`App listening on port: ${PORT}`);
 })

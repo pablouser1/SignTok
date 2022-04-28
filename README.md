@@ -14,7 +14,9 @@ For webserver:
 ```
 node server.py
 ```
-Then you can send a POST request to localhost:8080 with a raw/plain body containing the url
+Then you can send a POST request to http://localhost:8080/signature with a raw/plain body containing the url
+
+(Content-Type: text/plain)
 
 For cli usage:
 ```
