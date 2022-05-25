@@ -1,12 +1,12 @@
 const fs = require("fs")
 const Utils = require("./Utils")
 const { JSDOM, ResourceLoader } = require("jsdom")
-const CryptoJS = require("crypto-js")
+const { createCipheriv } = require("crypto")
 
 class Signer {
   static DEFAULT_USERAGENT =
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36"
-  static PASSWORD = CryptoJS.enc.Utf8.parse('webapp1.0+202106')
+  static PASSWORD = 'webapp1.0+202106'
   /**
    * @type Window
    */
@@ -51,12 +51,9 @@ class Signer {
 
   xttparams(params) {
     params += "&is_encryption=1"
-    const crypt = CryptoJS.AES.encrypt(params, Signer.PASSWORD, {
-      iv: Signer.PASSWORD,
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Pkcs7
-    }).toString()
-    return crypt
+    // Encrypt query string using aes-128-cbc
+    const cipher = createCipheriv("aes-128-cbc", Signer.PASSWORD, Signer.PASSWORD);
+    return Buffer.concat([cipher.update(params), cipher.final()]).toString('base64');
   }
 
   sign(url) {
