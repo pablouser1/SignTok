@@ -21,7 +21,7 @@ yarn install
 
 Now you can run the server with:
 ```
-node server.py
+node api/index.js
 ```
 ## Usage
 For webserver:

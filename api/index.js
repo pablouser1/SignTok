@@ -1,4 +1,4 @@
-const Signer = require("./src/Signer")
+const Signer = require("../src/Signer")
 const http = require("http")
 
 const PORT = process.env.PORT || 8080
@@ -13,7 +13,8 @@ const server = http.createServer(async (req, res) => {
   }
   else if (req.url === "/signature" && req.method === "POST") {
     res.writeHead(200, {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Cache-Control": "s-max-age=1, stale-while-revalidate" // caching stuff for vercel
     });
 
     // Get url from POST body
