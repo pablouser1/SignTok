@@ -6,12 +6,7 @@ const PORT = process.env.PORT || 8080
 const signer = new Signer()
 
 const server = http.createServer(async (req, res) => {
-  if (req.url === "/") {
-    res.writeHead(301, {
-      "Location": "https://github.com/pablouser1/SignTok"
-    })
-  }
-  else if (req.url === "/signature" && req.method === "POST") {
+  if (req.method === "POST") {
     res.writeHead(200, {
       "Content-Type": "application/json",
       "Cache-Control": "s-max-age=1, stale-while-revalidate" // caching stuff for vercel
@@ -33,16 +28,6 @@ const server = http.createServer(async (req, res) => {
         navigator: signer.navigator()
       }
     }));
-  }
-
-  // If no route present
-  else {
-    res.writeHead(404, {
-      "Content-Type": "application/json"
-    })
-    res.write(JSON.stringify({
-      message: "Route not found"
-    }))
   }
   res.end()
 })
