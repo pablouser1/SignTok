@@ -4,6 +4,7 @@ This is a port of [tiktok-signature](https://github.com/carcabot/tiktok-signatur
 
 This project allows signing TikTok urls without having to run a headless browser, which lowers ram usage a lot.
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://www.heroku.com/deploy/?template=https://github.com/pablouser1/SignTok)
 ## Installation
 ### Docker
 ```
@@ -24,12 +25,14 @@ Now you can run the server with:
 node api/index.js
 ```
 ## Usage
-For webserver:
+### Webserver
 You can send a POST request to http://localhost:8080/signature with a raw/plain body containing the url
 
 (Content-Type: text/plain)
 
-For cli usage:
+If you plan to use the already deployed Vercel version, you should use https://signtok.vercel.app/api/signature
+
+### Cli
 ```
-node index.js 'YOUR_URL_HERE'
+node local.js 'YOUR_URL_HERE'
 ```
