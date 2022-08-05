@@ -1,4 +1,4 @@
-name: Docker
+name: Build Docker image
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -12,6 +12,7 @@ on:
     tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
 
 env:
   # Use docker.io for Docker Hub if empty
