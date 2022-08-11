@@ -36,3 +36,6 @@ If you plan to use the already deployed Vercel version, you should use https://s
 ```
 node local.js 'YOUR_URL_HERE'
 ```
+
+## Credits
+* @H1W0XXX for providing a working X-Bogus script
