@@ -37,5 +37,21 @@ If you plan to use the already deployed Vercel version, you should use https://s
 node local.js 'YOUR_URL_HERE'
 ```
 
+### Library
+```bash
+npm install signtok
+```
+
+```javascript
+const SignTok = require('signtok');
+
+const signer = new SignTok();
+console.log(signer.sign('URL_HERE'));
+```
+
+## TODO
+* Typescript typing
+* Publish to npm with Github Actions
+
 ## Credits
 * @H1W0XXX for providing a working X-Bogus script

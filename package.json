@@ -4,8 +4,9 @@
   "description": "Sign your TikTok requests easily",
   "repository": "https://github.com/pablouser1/SignTok",
   "author": "Pablo Ferreiro",
+  "main": "src/Signer.js",
   "license": "MIT",
-  "private": true,
+  "keywords": ["tiktok", "tiktok-signer", "jsdom"],
   "scripts": {
     "start": "node api/index.js",
     "vercel-build": "yum -y install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/"
