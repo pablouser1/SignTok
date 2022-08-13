@@ -32,6 +32,8 @@ You can send a POST request to http://localhost:8080/signature with a raw/plain 
 
 If you plan to use the already deployed Vercel version, you should use https://signtok.vercel.app/api/signature
 
+You can see some examples [here](https://github.com/pablouser1/SignTok/blob/master/examples)
+
 ### Cli
 ```
 node local.js 'YOUR_URL_HERE'
