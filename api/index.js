@@ -1,5 +1,6 @@
 const Signer = require("../src/Signer");
 const http = require("http");
+const Utils = require("../src/Utils");
 
 const PORT = process.env.PORT || 8080;
 
@@ -20,15 +21,7 @@ const server = http.createServer(async (req, res) => {
 
     const data = signer.sign(url);
     console.log("Sent data from request with url: " + url);
-    res.write(
-      JSON.stringify({
-        status: "ok",
-        data: {
-          ...data,
-          navigator: signer.navigator()
-        }
-      })
-    );
+    res.write(Utils.makePayload(data, signer.navigator()));
   } else {
     res.write(
       JSON.stringify({
