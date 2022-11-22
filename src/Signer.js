@@ -1,11 +1,10 @@
 const fs = require("fs");
-const Utils = require("./Utils");
 const { JSDOM, ResourceLoader } = require("jsdom");
 const { createCipheriv } = require("crypto");
 
 class Signer {
   static DEFAULT_USERAGENT =
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36";
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.35";
   static PASSWORD = "webapp1.0+202106";
   /**
    * @type Window
@@ -55,6 +54,7 @@ class Signer {
   }
 
   xttparams(params) {
+    params += "&verifyFp=undefined";
     params += "&is_encryption=1";
     // Encrypt query string using aes-128-cbc
     const cipher = createCipheriv("aes-128-cbc", Signer.PASSWORD, Signer.PASSWORD);
@@ -63,8 +63,6 @@ class Signer {
 
   sign(url_str) {
     const url = new URL(url_str);
-    const verifyFp = Utils.verify_fp();
-    url.searchParams.append('verifyFp', verifyFp);
     const signature = this.signature(url.toString());
     url.searchParams.append('_signature', signature);
     const bogus = this.bogus(url.searchParams.toString());
@@ -72,7 +70,6 @@ class Signer {
     const xttparams = this.xttparams(url.searchParams.toString());
     return {
       signature: signature,
-      verify_fp: verifyFp,
       signed_url: url.toString(),
       "x-tt-params": xttparams,
       "X-Bogus": bogus
