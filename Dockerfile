@@ -9,8 +9,8 @@ RUN apk add --no-cache \
     cairo pango
 
 # Install deps
-COPY package.json yarn.lock ./
-RUN yarn install
+COPY package.json package-lock.json ./
+RUN npm ci
 
 # Copy required files for server
 COPY ./src ./src
