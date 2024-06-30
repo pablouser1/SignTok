@@ -20,7 +20,9 @@ const server = http.createServer(async (req, res) => {
     const url = Buffer.concat(buffers).toString();
 
     const data = signer.sign(url);
-    console.log("Sent data from request with url: " + url);
+    if (data !== null) {
+      console.log("Sending data from request with url: " + url);
+    }
     res.write(Utils.makePayload(data, signer.navigator()));
   } else {
     res.write(

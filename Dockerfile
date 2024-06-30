@@ -12,12 +12,13 @@ RUN apk add --no-cache \
 COPY package.json package-lock.json ./
 RUN npm ci
 
+# Delete dev deps
+RUN apk del python3 g++ make cairo-dev pango-dev
+
 # Copy required files for server
+COPY ./js ./js
 COPY ./src ./src
 COPY ./api ./api
-COPY ./js ./js
-
-RUN apk del python3 g++ make cairo-dev pango-dev
 
 EXPOSE 8080
 CMD [ "node", "api/index.js" ]

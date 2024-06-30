@@ -90,21 +90,27 @@ class Signer {
   /**
    * Sign a TikTok URL
    * @param {string} url_str Unsigned URL
-   * @returns Object with signed data
+   * @returns Object with signed data or null if error
    */
   sign(url_str) {
-    const url = new URL(url_str);
-    const signature = this.signature(url.toString());
-    url.searchParams.append('_signature', signature);
-    const bogus = this.bogus(url.searchParams.toString());
-    url.searchParams.append('X-Bogus', bogus);
-    const xttparams = this.xttparams(url.searchParams.toString());
-    return {
-      signature: signature,
-      signed_url: url.toString(),
-      "x-tt-params": xttparams,
-      "X-Bogus": bogus
-    };
+    try {
+      const url = new URL(url_str);
+      const signature = this.signature(url.toString());
+      url.searchParams.append('_signature', signature);
+      const bogus = this.bogus(url.searchParams.toString());
+      url.searchParams.append('X-Bogus', bogus);
+      const xttparams = this.xttparams(url.searchParams.toString());
+      return {
+        signature: signature,
+        signed_url: url.toString(),
+        "x-tt-params": xttparams,
+        "X-Bogus": bogus
+      };
+    } catch (_e) {
+      return null;
+    } finally {
+
+    }
   }
 }
 
