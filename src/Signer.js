@@ -108,8 +108,6 @@ class Signer {
       };
     } catch (_e) {
       return null;
-    } finally {
-
     }
   }
 }
